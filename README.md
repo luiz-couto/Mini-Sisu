@@ -1,4 +1,4 @@
-# Mini-Sisu (Em desenvolvimento)
+# Mini-Sisu (Em desenvolvimento) - C++
 Trabalho Prático Nº1 - Estrutura de Dados - UFMG
 
 ## Entrada e saída
