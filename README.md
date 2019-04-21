@@ -1,4 +1,4 @@
-# Mini-Sisu
+# Mini-Sisu (Em desenvolvimento)
 Trabalho Prático Nº1 - Estrutura de Dados - UFMG
 
 ## Entrada e saída
