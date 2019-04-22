@@ -25,7 +25,7 @@ class CourseList{
         CourseList();
         ~CourseList();
         void InsertElement(string name,int vacancies);
-        course GetElement();
+        course GetElement(int position);
         void Print();
 
 
