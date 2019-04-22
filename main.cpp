@@ -2,6 +2,7 @@
 //NOME: LUIZ FELIPE COUTO GONTIJO
 
 #include "lista_cursos.h"
+#include "lista_alunos.h"
 
 #include <iostream>
 #include <sstream>
@@ -10,6 +11,7 @@
 int main(){
 
     CourseList course_list;
+    StudentList student_list;
     
     course_list.InsertElement("Mineração de Gelo",12);
     course_list.InsertElement("Computação de Gelo",40);
@@ -20,6 +22,11 @@ int main(){
 
 
     course_list.Print();
+
+    student_list.InsertElement("Luiz Felipe",761,1,0);
+    student_list.InsertElement("João",731,2,0);
+
+    student_list.Print();
 
 
 
