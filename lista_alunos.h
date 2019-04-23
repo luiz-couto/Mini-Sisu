@@ -10,6 +10,8 @@ struct student{
     int option_1;        
     int option_2;
 
+    int sinal;
+
     student *prox; 
 
 };

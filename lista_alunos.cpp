@@ -24,6 +24,7 @@ void StudentList::InsertElement(string name, float grade, int option_1, int opti
     novo->grade = grade;
     novo->option_1 = option_1;
     novo->option_2 = option_2;
+    novo->sinal = 0;
 
     if(this->number_of_elements == 0){
         
