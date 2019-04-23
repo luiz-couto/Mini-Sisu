@@ -31,6 +31,7 @@ class StudentList{
         void InsertElement(string name, float grade, int option_1, int option_2);
         student GetElement(int position);
         void Print();
+        void ExchangeElement(int position);
 
 
 };

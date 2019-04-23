@@ -78,3 +78,45 @@ student StudentList::GetElement(int position){
 
 };
 
+void StudentList::ExchangeElement(int position){
+
+
+    student *s = this->start;
+    int i;
+    
+    for(i=0;i<position;i++){
+        s = s->prox;
+    }
+    
+    if(position == 0){
+       
+        student *s_prox = s->prox;
+    
+        s->prox = s_prox->prox;
+        s_prox->prox = s;
+        this->start = s_prox;
+  
+    }else{
+
+        student *s_prox = s->prox;
+        
+        student *s_prev = this->start;
+        for(i=0;i<position-1;i++){
+            s_prev = s_prev->prox;
+        }
+
+        s->prox = s_prox->prox;
+        s_prox->prox = s;
+        s_prev->prox = s_prox;
+        
+        if(s->prox == nullptr){
+            this->end = s;
+        }
+
+    }
+
+
+
+
+}
+
