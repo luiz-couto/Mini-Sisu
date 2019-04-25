@@ -17,7 +17,7 @@ StudentList::~StudentList(){
 
 };
 
-void StudentList::InsertElement(string name, float grade, int option_1, int option_2){
+void StudentList::InsertElement(string name, float grade, int option_1, int option_2, int id){
 
     student *novo = new student;
     novo->name = name;
@@ -25,6 +25,7 @@ void StudentList::InsertElement(string name, float grade, int option_1, int opti
     novo->option_1 = option_1;
     novo->option_2 = option_2;
     novo->sinal = 0;
+    novo->id = id;
 
     if(this->number_of_elements == 0){
         
@@ -77,6 +78,40 @@ student StudentList::GetElement(int position){
 
 
 };
+
+student StudentList::GetElementById(int id, int a){
+
+    student *current = this->start;
+    int i;
+    
+    for(i=0;i<a;i++){
+        
+        if(current->id == id){
+            break;
+        }
+        current = current->prox;
+    }
+
+    return *current;
+
+
+};
+
+void StudentList::ChangeSinal(int id, int sinal, int a){
+
+    student *current = this->start;
+    int i;
+    
+    for(i=0;i<a;i++){
+        
+        if(current->id == id){
+            current->sinal = sinal;
+            break;
+        }
+        current = current->prox;
+    }
+}
+
 
 void StudentList::ExchangeElement(int position){
 

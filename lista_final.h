@@ -9,10 +9,10 @@ struct final{
     float passing_score; //nota de corte
     
     
-    string *classified_names;
+    int *classified_ids;
     float *classified_grades;
 
-    string *wait_names;
+    int *wait_ids;
     float *wait_grades;
 
 
@@ -33,8 +33,8 @@ class FinalList{
         FinalList();
         ~FinalList();
         void InsertElement(string course_name, int number_v, int number_students);
-        void InsertInClassified(string name, float grade, int number_v, int position);
-        void InsertInWait(string name, float grade, int position,int a);
+        void InsertInClassified(int id, float grade, int number_v, int position);
+        void InsertInWait(int id, float grade, int position,int a);
         final GetElement(int position);
         void Print();
 

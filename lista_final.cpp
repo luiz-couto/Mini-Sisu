@@ -25,16 +25,16 @@ void FinalList::InsertElement(string course_name, int number_v, int number_stude
     novo->passing_score = 0;
     
    
-    novo->classified_names = new string[number_v];
+    novo->classified_ids = new int[number_v];
     novo->classified_grades = new float[number_v];
-    novo->wait_names = new string[number_students];
+    novo->wait_ids = new int[number_students];
     novo->wait_grades = new float[number_students];
 
     int i;
 
     for(i=0;i<number_v;i++){                        //Inicializando com -1(ou seja, sem valor real)
 
-        novo->classified_names[i] = "-1";
+        novo->classified_ids[i] = -1;
         novo->classified_grades[i] = -1;
 
     }
@@ -43,7 +43,7 @@ void FinalList::InsertElement(string course_name, int number_v, int number_stude
 
     for(i=0;i<number_students;i++){                        //Inicializando com -1(ou seja, sem valor real)
 
-        novo->wait_names[i] = "-1";
+        novo->wait_ids[i] = -1;
         novo->wait_grades[i] = -1;
 
     }
@@ -77,7 +77,7 @@ void FinalList::Print(){
         cout << "Curso:" << current->course_name << endl;
         int j;
         for(j=0;j<2;j++){
-             cout << current->wait_names[j] << " - " << endl;
+             cout << current->classified_ids[j] << " - " << endl;
         }
 
         current = current->prox;
@@ -104,7 +104,7 @@ final FinalList::GetElement(int position){
 
 };
 
-void FinalList::InsertInClassified(string name, float grade, int number_v, int position){
+void FinalList::InsertInClassified(int id, float grade, int number_v, int position){
 
     int i;
 
@@ -114,9 +114,9 @@ void FinalList::InsertInClassified(string name, float grade, int number_v, int p
 
     for(i=0;i<number_v;i++){
 
-        if(f.classified_names[i] == "-1"){
+        if(f.classified_ids[i] == -1){
           
-            f.classified_names[i] = name;
+            f.classified_ids[i] = id;
             f.classified_grades[i] = grade;
             
             //f.passing_score = grade;
@@ -129,7 +129,7 @@ void FinalList::InsertInClassified(string name, float grade, int number_v, int p
 
 };
 
-void FinalList::InsertInWait(string name, float grade, int position, int a){
+void FinalList::InsertInWait(int id, float grade, int position, int a){
     
     int i;
 
@@ -139,9 +139,9 @@ void FinalList::InsertInWait(string name, float grade, int position, int a){
 
     for(i=0;i<a;i++){
 
-        if(f.wait_names[i] == "-1"){
+        if(f.wait_ids[i] == -1){
           
-            f.wait_names[i] = name;
+            f.wait_ids[i] = id;
             f.wait_grades[i] = grade;
             
             //f.passing_score = grade;
