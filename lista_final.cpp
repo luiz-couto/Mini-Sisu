@@ -75,7 +75,10 @@ void FinalList::Print(){
     for(i=0;i<this->number_of_elements;i++){
 
         cout << "Curso:" << current->course_name << endl;
-        cout << "Nota de corte:" << current->passing_score << endl;
+        int j;
+        for(j=0;j<2;j++){
+             cout << current->wait_names[j] << " - " << endl;
+        }
 
         current = current->prox;
 
@@ -84,6 +87,8 @@ void FinalList::Print(){
 
 
 };
+
+
 
 final FinalList::GetElement(int position){
 
@@ -112,7 +117,7 @@ void FinalList::InsertInClassified(string name, float grade, int number_v, int p
         if(f.classified_names[i] == "-1"){
           
             f.classified_names[i] = name;
-            f.classified_grades[i] == grade;
+            f.classified_grades[i] = grade;
             
             //f.passing_score = grade;
             break;
@@ -123,4 +128,26 @@ void FinalList::InsertInClassified(string name, float grade, int number_v, int p
 
 
 };
+
+void FinalList::InsertInWait(string name, float grade, int position, int a){
+    
+    int i;
+
+    final f = this->GetElement(position);
+    
+
+
+    for(i=0;i<a;i++){
+
+        if(f.wait_names[i] == "-1"){
+          
+            f.wait_names[i] = name;
+            f.wait_grades[i] = grade;
+            
+            //f.passing_score = grade;
+            break;
+        }
+
+    }
+}
 

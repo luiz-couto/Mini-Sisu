@@ -34,6 +34,7 @@ class FinalList{
         ~FinalList();
         void InsertElement(string course_name, int number_v, int number_students);
         void InsertInClassified(string name, float grade, int number_v, int position);
+        void InsertInWait(string name, float grade, int position,int a);
         final GetElement(int position);
         void Print();
 

@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void OrdenaListaAlunos(StudentList student_list, int n, int a){
+StudentList OrdenaListaAlunos(StudentList student_list, int n, int a){
 
     int i;
     int j;
@@ -58,8 +58,56 @@ void OrdenaListaAlunos(StudentList student_list, int n, int a){
 
     }
 
-    student_list.Print();
-    cout << endl;
+    return student_list;
+    // student_list.Print();
+    // cout << endl;
+
+};
+
+FinalList PreencheListaFinal(CourseList course_list, StudentList student_list, FinalList final_list, int n, int a){
+
+    int i;
+    int k=0;  //auxiliar - contador global na lista de alunos
+    int j;  // contador que reseta - contador do número de vagas
+
+    student current_student = student_list.GetElement(k);
+
+    for(i=0;i<n;i++){       //n é o numero de materias
+
+        course current_course = course_list.GetElement(i);
+        int num_vac = current_course.vacancies;
+        
+        current_student = student_list.GetElement(k);
+        j = 0;
+
+        while(current_student.option_1 == i){
+
+            if(j < num_vac){
+                final_list.InsertInClassified(current_student.name,current_student.grade,num_vac,i);
+                j++;
+                current_student.sinal = 1;
+            }else{
+                final_list.InsertInWait(current_student.name,current_student.grade,i,a); // sendo a o número total de alunos
+            }
+            k++;
+            if(k > a-1){  // a-1 pois k começa em 0
+                break;
+            }
+            current_student = student_list.GetElement(k); 
+            
+        }
+
+        if(k > a-1){  // a-1 pois k começa em 0
+            break;
+        }
+        
+
+    } 
+
+    return final_list;
+
+
+
 
 }
 
@@ -70,13 +118,19 @@ int main(){
     StudentList student_list;
     FinalList final_list;
 
+    int i; //aux
+  
     int n = 3;
     int a = 9;
     
-    course_list.InsertElement("Mineração de Gelo",12);
-    course_list.InsertElement("Computação de Gelo",40);
-    course_list.InsertElement("Medicina de Gelo",120);
+    course_list.InsertElement("Mineração de Gelo",2);
+    course_list.InsertElement("Computação de Gelo",2);
+    course_list.InsertElement("Medicina de Gelo",2);
 
+    for(i=0;i<n;i++){
+        final_list.InsertElement(course_list.GetElement(i).name,course_list.GetElement(i).vacancies,a);
+    }
+  
     //course c = course_list.GetElement(0);
     //cout << "Name c:" << c.name << endl;
 
@@ -96,11 +150,17 @@ int main(){
 
     //student_list.ExchangeElement(1); // Muda o elemento da posição informada com o elemento da próxima posição
 
-    student_list.Print();
+    //student_list.Print();
 
     std::cout << endl;
 
-    OrdenaListaAlunos(student_list,n,a);
+    student_list = OrdenaListaAlunos(student_list,n,a);
+    
+    final_list = PreencheListaFinal(course_list,student_list,final_list,n,a);
+    //final_list.InsertInClassified("A",700,2,0);
+    //student_list.Print();
+    final_list.Print();
+
     
     // student_list.ExchangeElement(1);
     // student_list.ExchangeElement(0);
