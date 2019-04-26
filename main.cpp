@@ -191,59 +191,114 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
     }
 }
 
+void GetData(CourseList &course_list,StudentList &student_list,FinalList &final_list,int &n,int &a){
 
-int main(){
+    int i; // auxiliar
 
-    CourseList course_list;
-    StudentList student_list;
-    FinalList final_list;
+    cin >> n;
+    cin >> a;
+    for(i=0;i<n;i++){
+        
+        fflush(stdin);
 
-    int i; //aux
-  
-    int n = 2;
-    int a = 5;
+        string name;
+        cin.ignore();
+        getline(cin,name);
+        
+        fflush(stdin);
+       
+        int n_vac;
+        cin >> n_vac;
+        
+        course_list.InsertElement(name,n_vac); 
+    }
+
+    for(i=0;i<a;i++){
+
+        fflush(stdin);
+
+        string name;
+        cin.ignore();
+        getline(cin,name);
+
+        fflush(stdin);
+
+        float grade;
+        int op1;
+        int op2;
+        int id = i;
+
+        cin >> grade;
+        cin >> op1;
+        cin >> op2;
+
+        student_list.InsertElement(name,grade,op1,op2,id);
+
+
+    }
+
     
-    course_list.InsertElement("Mineração de Gelo",2);
-    course_list.InsertElement("Engenharia Metalurgica",1);
-    //course_list.InsertElement("Medicina de Gelo",2);
-
     for(i=0;i<n;i++){
         final_list.InsertElement(course_list.GetElement(i).name,course_list.GetElement(i).vacancies,a);
     }
+}
+
+void PrintFinal(CourseList &course_list,StudentList &student_list,FinalList &final_list,int &n,int &a){
+
+    int i,j;
+
+    cout << "------------------------------------------------------------" << endl;
+    cout << fixed;
+    cout.precision(2);
+
+    for(i=0;i<n;i++){
+        
+        final current_final = final_list.GetElement(i);
+        course current_course = course_list.GetElement(i);
+        
+        cout << current_final.course_name << " ";
+        int n_vac = current_course.vacancies;
+        
+        if(current_final.classified_grades[n_vac-1] != -1){
+            cout << current_final.classified_grades[n_vac-1] << endl;
+        }else{
+            cout << 0.00 << endl;
+        }
+
+        cout << "Classificados" << endl;
+        for(j=0;j<n_vac;j++){
+            if(current_final.classified_ids[j] != -1){
+                student current_student = student_list.GetElementById(current_final.classified_ids[j],a);
+                cout << current_student.name << " " << current_final.classified_grades[j] << endl;
+            }
+        }
+        cout << "Lista de epera" << endl;
+        for(j=0;j<a;j++){
+            if(current_final.wait_ids[j] != -1){
+                student current_student = student_list.GetElementById(current_final.wait_ids[j],a);
+                cout << current_student.name << " " << current_final.wait_grades[j] << endl;
+            }   
+        }
+        cout << endl;
+    }
+}
+
+
+int main(){
+
+    CourseList course_list;     
+    StudentList student_list;
+    FinalList final_list;
   
-    //course c = course_list.GetElement(0);
-    //cout << "Name c:" << c.name << endl;
+    int n;      // Número de matérias
+    int a;      // Número de alunos
 
-
-    //course_list.Print();
-
-    // student_list.InsertElement("Kristoff",500,0,1,0);
-    // student_list.InsertElement("Gothi",500,0,1,1);
-    // student_list.InsertElement("Gerda",500,1,0,2);
-    // student_list.InsertElement("Hans",500,1,0,3);
-    student_list.InsertElement("Olavo",500,0,1,0);
-    student_list.InsertElement("Gothi",500,0,1,1);
-    student_list.InsertElement("Gerda",500,1,0,2);
-    student_list.InsertElement("Hans",500,1,0,3);
-    student_list.InsertElement("Kristoff",500,0,1,4);
-    
-
-   
-
+    GetData(course_list,student_list,final_list,n,a);
     OrdenaListaAlunos(student_list,n,a);
     PreencheListaFinal(course_list,student_list,final_list,n,a);
     VerificaSegundaOpcao(course_list,student_list,final_list,n,a);
+    PrintFinal(course_list,student_list,final_list,n,a);
     
-   
-    final_list.PrintCourse(0,course_list.GetElement(0).vacancies,a);
-    final_list.PrintCourse(1,course_list.GetElement(1).vacancies,a);
-    //final_list.PrintCourse(2,course_list.GetElement(2).vacancies,a);
-    
-    
-
-
-
-
     return 0;
 
 }
