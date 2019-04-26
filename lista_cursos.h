@@ -27,8 +27,7 @@ class CourseList{
         void InsertElement(string name,int vacancies);
         course GetElement(int position);
         void Print();
-
-
+        
 };
 
 

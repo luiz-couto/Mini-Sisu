@@ -135,7 +135,8 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                 final final_op2 = final_list.GetElement(op2);
 
                 int n_vac = course_op2.vacancies;
-                if(current_student.grade > final_op2.classified_grades[n_vac-1]){
+                if((current_student.grade > final_op2.classified_grades[n_vac-1]) ||
+                (current_student.grade == final_op2.classified_grades[n_vac-1] && current_student.id < final_op2.classified_ids[n_vac-1] )){
 
                     student last = student_list.GetElementById(final_op2.classified_ids[n_vac-1],a);
                     student_list.ChangeSinal(last.id,0,a);
@@ -183,41 +184,54 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                 }else{ //Colocar na lista de espera
 
                     student_list.ChangeSinal(current_student.id,2,a);                   
-                    for(j=1;j<n_vac-1;j++){
+                    for(j=1;j<a-1;j++){
 
-                        if(current_student.grade < final_op2.wait_grades[n_vac - j]){
-                            break;
-                        }else{
+                        
+                        if(final_op2.wait_ids[a - (j+1)] != -1){
 
-                            if(current_student.grade == final_op2.wait_grades[n_vac - j]){
+                        
+                            if(current_student.grade < final_op2.wait_grades[a - j]){
                                 
-                                if(current_student.id > final_op2.wait_ids[n_vac - j]){
-                                    break;
-                                }
-                                else{
-                                    final_op2.wait_ids[n_vac-(j+1)] = final_op2.wait_ids[n_vac-j];
-                                    final_op2.wait_ids[n_vac-j] = current_student.id;
+                                final_op2.wait_ids[a-(j+1)] = current_student.id;
+                                final_op2.wait_grades[a-(j+1)] = current_student.grade;
+                                break;
+                                 
+                                
+                            }else{
 
-                                    final_op2.wait_grades[n_vac-(j+1)] = final_op2.wait_grades[n_vac-j];
-                                    final_op2.wait_grades[n_vac-j] = current_student.grade;
-                                }
+                                if(current_student.grade == final_op2.wait_grades[a - j]){
+                                    
+                                    if(current_student.id > final_op2.wait_ids[a - j]){
+                                       
+                                       final_op2.wait_ids[a-(j+1)] = current_student.id;
+                                       final_op2.wait_grades[a-(j+1)] = current_student.grade;
+                                       break;
+                                    }
+                                    else{
+                                        final_op2.wait_ids[a-(j+1)] = final_op2.wait_ids[a-j];
+                                        final_op2.wait_ids[a-j] = current_student.id;
 
+                                        final_op2.wait_grades[a-(j+1)] = final_op2.wait_grades[a-j];
+                                        final_op2.wait_grades[a-j] = current_student.grade;
+                                    }
+
+
+                                }
+                                else if(current_student.grade > final_op2.wait_grades[a - j]){
+
+                                    final_op2.wait_ids[a-(j+1)] = final_op2.wait_ids[a-j];
+                                    final_op2.wait_ids[a-j] = current_student.id;
+
+                                    final_op2.wait_grades[a-(j+1)] = final_op2.wait_grades[a-j];
+                                    final_op2.wait_grades[a-j] = current_student.grade;
+
+
+                                }
 
                             }
-                            else if(current_student.grade > final_op2.wait_grades[n_vac - j]){
-
-                                final_op2.wait_ids[n_vac-(j+1)] = final_op2.wait_ids[n_vac-j];
-                                final_op2.wait_ids[n_vac-j] = current_student.id;
-
-                                final_op2.wait_grades[n_vac-(j+1)] = final_op2.wait_grades[n_vac-j];
-                                final_op2.wait_grades[n_vac-j] = current_student.grade;
-
-
-                            }
-
                         }
-
-                    }
+                   
+                    }   
     
 
 
@@ -254,12 +268,12 @@ int main(){
 
     int i; //aux
   
-    int n = 3;
-    int a = 9;
+    int n = 2;
+    int a = 5;
     
     course_list.InsertElement("Mineração de Gelo",2);
-    course_list.InsertElement("Computação de Gelo",2);
-    course_list.InsertElement("Medicina de Gelo",2);
+    course_list.InsertElement("Engenharia Metalurgica",1);
+    //course_list.InsertElement("Medicina de Gelo",2);
 
     for(i=0;i<n;i++){
         final_list.InsertElement(course_list.GetElement(i).name,course_list.GetElement(i).vacancies,a);
@@ -271,15 +285,15 @@ int main(){
 
     //course_list.Print();
 
-    student_list.InsertElement("C",500,0,2,0);
-    student_list.InsertElement("D",750,1,0,1);
-    student_list.InsertElement("E",700,1,2,2);
-    student_list.InsertElement("A",700,0,1,3);
-    student_list.InsertElement("G",800,2,0,4);
-    student_list.InsertElement("I",700,2,0,5);
-    student_list.InsertElement("B",650,0,1,6);
-    student_list.InsertElement("F",650,1,0,7);
-    student_list.InsertElement("H",750,2,1,8);
+    student_list.InsertElement("Kristoff",725.66,0,1,0);
+    student_list.InsertElement("Gothi",490.10,0,1,1);
+    student_list.InsertElement("Gerda",556.79,1,0,2);
+    student_list.InsertElement("Hans",418.09,1,0,3);
+    student_list.InsertElement("Olavo",496.00,0,1,4);
+    // student_list.InsertElement("I",700,2,0,5);
+    // student_list.InsertElement("B",650,0,1,6);
+    // student_list.InsertElement("F",650,1,0,7);
+    // student_list.InsertElement("H",750,2,1,8);
     
 
     //student_list.ExchangeElement(1); // Muda o elemento da posição informada com o elemento da próxima posição
@@ -294,8 +308,10 @@ int main(){
     VerificaSegundaOpcao(course_list,student_list,final_list,n,a);
     //final_list.InsertInClassified("A",700,2,0);
     //student_list.Print();
-    final_list.Print();
-
+    //final_list.Print();
+    final_list.PrintCourse(0,course_list.GetElement(0).vacancies,a);
+    final_list.PrintCourse(1,course_list.GetElement(1).vacancies,a);
+    //final_list.PrintCourse(2,course_list.GetElement(2).vacancies,a);
     
     // student_list.ExchangeElement(1);
     // student_list.ExchangeElement(0);

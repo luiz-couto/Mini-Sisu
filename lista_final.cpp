@@ -77,7 +77,7 @@ void FinalList::Print(){
         cout << "Curso:" << current->course_name << endl;
         int j;
         for(j=0;j<2;j++){
-             cout << current->classified_ids[j] << " - " << endl;
+             cout << current->classified_grades[j] << " - " << endl;
         }
 
         current = current->prox;
@@ -87,6 +87,29 @@ void FinalList::Print(){
 
 
 };
+
+void FinalList::PrintCourse(int course, int n_vac, int a){
+
+    final *current = this->start;
+    int i;
+
+    for(i=0;i<course;i++){
+        current = current->prox;
+    }
+
+    cout << current->course_name << endl << endl;
+
+    cout << "Classificados" << endl;
+    for(i=0;i<n_vac;i++){
+        cout << current->classified_ids[i] << " - " << current->classified_grades[i] << endl;
+    }
+    cout << "Lista de espera" << endl;
+    for(i=0;i<a;i++){
+        cout << current->wait_ids[i] << " - " << current->wait_grades[i] << endl << endl;
+    }
+
+
+}
 
 
 
