@@ -157,7 +157,14 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                     
                     for(j=a-1;j>0;j--){
                     
+                        if(final_op2.wait_ids[0] == -1){
+                            final_op2.wait_ids[0] = current_student.id;
+                            final_op2.wait_grades[0] = current_student.grade;
+                            break;
+                        }
+                        
                         if(final_op2.wait_ids[j-1] != -1){
+
                     
                             if((final_op2.wait_grades[j-1] < current_student.grade) ||
                             (final_op2.wait_grades[j-1] == current_student.grade && final_op2.wait_ids[j-1] > current_student.id )){
