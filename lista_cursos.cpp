@@ -59,4 +59,17 @@ void CourseList::Print(){
 
 };
 
+course CourseList::GetElement(int position){
+
+    course *current = this->start;
+    int i;
+    
+    for(i=0;i<position;i++){
+        current = current->prox;
+    }
+
+    return *current;
+
+
+};
 
