@@ -15,8 +15,6 @@ void OrdenaListaAlunos(StudentList &student_list, int n, int a){
     int i;
     int j;
 
-
-   
     for(i=0;i<n;i++){
 
         for(j=1;j<a;j++){
@@ -39,7 +37,6 @@ void OrdenaListaAlunos(StudentList &student_list, int n, int a){
                                 student_list.ExchangeElement(k);
                             }
                         }
-                        
                         break;
                     }
                     else{
@@ -49,20 +46,9 @@ void OrdenaListaAlunos(StudentList &student_list, int n, int a){
                     k = k-1;
                 }
             }
-            
         }
-
-
-
-
-
     }
-
-    //return student_list;
-    // student_list.Print();
-    // cout << endl;
-
-};
+}
 
 void PreencheListaFinal(CourseList &course_list, StudentList &student_list, FinalList &final_list, int n, int a){
 
@@ -72,7 +58,6 @@ void PreencheListaFinal(CourseList &course_list, StudentList &student_list, Fina
 
     student current_student = student_list.GetElement(k);
     
-
     for(i=0;i<n;i++){       //n é o numero de materias
 
         course current_course = course_list.GetElement(i);
@@ -94,22 +79,13 @@ void PreencheListaFinal(CourseList &course_list, StudentList &student_list, Fina
             if(k > a-1){  // a-1 pois k começa em 0
                 break;
             }
-            current_student = student_list.GetElement(k); 
-            
+            current_student = student_list.GetElement(k);   
         }
 
         if(k > a-1){  // a-1 pois k começa em 0
             break;
         }
-        
-
     } 
-
-    
-
-
-
-
 }
 
 void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,FinalList &final_list,int n,int a){
@@ -118,7 +94,6 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
     bool have_zero = true;
 
     student current_student = student_list.GetElement(0);
-    
     
     while(have_zero == true){
         
@@ -163,7 +138,6 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                                     final_op2.classified_grades[n_vac-j] = current_student.grade;
                                 }
 
-
                             }
                             else if(current_student.grade > final_op2.classified_grades[n_vac - j]){
 
@@ -173,13 +147,9 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                                 final_op2.classified_grades[n_vac-(j+1)] = final_op2.classified_grades[n_vac-j];
                                 final_op2.classified_grades[n_vac-j] = current_student.grade;
 
-
                             }
-
                         }
-
                     }
-
 
                 }else{ //Colocar na lista de espera
 
@@ -204,35 +174,21 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                                 final_op2.wait_grades[j] = current_student.grade;
                                 break;
 
-
                             }
                         }
                     }   
-    
-
-
                 }
-
-
 
             }else{
                 
                 k++;
-                if(k == a-1){
+                if(k == a){
                     have_zero = false;
                     break;
                 }
             }
-
-
-
         }
-
     }
-    
-
-
-
 }
 
 
@@ -261,40 +217,29 @@ int main(){
 
     //course_list.Print();
 
-    student_list.InsertElement("Kristoff",500,0,1,0);
+    // student_list.InsertElement("Kristoff",500,0,1,0);
+    // student_list.InsertElement("Gothi",500,0,1,1);
+    // student_list.InsertElement("Gerda",500,1,0,2);
+    // student_list.InsertElement("Hans",500,1,0,3);
+    student_list.InsertElement("Olavo",500,0,1,0);
     student_list.InsertElement("Gothi",500,0,1,1);
     student_list.InsertElement("Gerda",500,1,0,2);
     student_list.InsertElement("Hans",500,1,0,3);
-    student_list.InsertElement("Olavo",500,0,1,4);
-    // student_list.InsertElement("I",700,2,0,5);
-    // student_list.InsertElement("B",650,0,1,6);
-    // student_list.InsertElement("F",650,1,0,7);
-    // student_list.InsertElement("H",750,2,1,8);
+    student_list.InsertElement("Kristoff",500,0,1,4);
     
 
-    //student_list.ExchangeElement(1); // Muda o elemento da posição informada com o elemento da próxima posição
-
-    //student_list.Print();
-
-    std::cout << endl;
+   
 
     OrdenaListaAlunos(student_list,n,a);
-    
     PreencheListaFinal(course_list,student_list,final_list,n,a);
     VerificaSegundaOpcao(course_list,student_list,final_list,n,a);
-    //final_list.InsertInClassified("A",700,2,0);
-    //student_list.Print();
-    //final_list.Print();
+    
+   
     final_list.PrintCourse(0,course_list.GetElement(0).vacancies,a);
     final_list.PrintCourse(1,course_list.GetElement(1).vacancies,a);
     //final_list.PrintCourse(2,course_list.GetElement(2).vacancies,a);
     
-    // student_list.ExchangeElement(1);
-    // student_list.ExchangeElement(0);
     
-   
-    //student_list.Print();
-
 
 
 
