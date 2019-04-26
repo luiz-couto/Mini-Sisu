@@ -101,11 +101,15 @@ void FinalList::PrintCourse(int course, int n_vac, int a){
 
     cout << "Classificados" << endl;
     for(i=0;i<n_vac;i++){
-        cout << current->classified_ids[i] << " - " << current->classified_grades[i] << endl;
+        if(current->classified_ids[i] != -1){
+            cout << current->classified_ids[i] << " - " << current->classified_grades[i] << endl;
+        }
     }
     cout << "Lista de espera" << endl;
     for(i=0;i<a;i++){
-        cout << current->wait_ids[i] << " - " << current->wait_grades[i] << endl << endl;
+        if(current->wait_ids[i] != -1){
+            cout << current->wait_ids[i] << " - " << current->wait_grades[i] << endl << endl;
+        }
     }
 
 

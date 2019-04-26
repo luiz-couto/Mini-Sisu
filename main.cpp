@@ -184,53 +184,29 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                 }else{ //Colocar na lista de espera
 
                     student_list.ChangeSinal(current_student.id,2,a);                   
-                    for(j=1;j<a-1;j++){
-
-                        
-                        if(final_op2.wait_ids[a - (j+1)] != -1){
-
-                        
-                            if(current_student.grade < final_op2.wait_grades[a - j]){
+                    
+                    for(j=a-1;j>0;j--){
+                    
+                        if(final_op2.wait_ids[j-1] != -1){
+                    
+                            if((final_op2.wait_grades[j-1] < current_student.grade) ||
+                            (final_op2.wait_grades[j-1] == current_student.grade && final_op2.wait_ids[j-1] > current_student.id )){
                                 
-                                final_op2.wait_ids[a-(j+1)] = current_student.id;
-                                final_op2.wait_grades[a-(j+1)] = current_student.grade;
-                                break;
-                                 
-                                
+                                final_op2.wait_ids[j] = final_op2.wait_ids[j-1];
+                                final_op2.wait_ids[j-1] = current_student.id;
+
+                                final_op2.wait_grades[j] = final_op2.wait_grades[j-1];
+                                final_op2.wait_grades[j-1] = current_student.grade;
+                           
                             }else{
 
-                                if(current_student.grade == final_op2.wait_grades[a - j]){
-                                    
-                                    if(current_student.id > final_op2.wait_ids[a - j]){
-                                       
-                                       final_op2.wait_ids[a-(j+1)] = current_student.id;
-                                       final_op2.wait_grades[a-(j+1)] = current_student.grade;
-                                       break;
-                                    }
-                                    else{
-                                        final_op2.wait_ids[a-(j+1)] = final_op2.wait_ids[a-j];
-                                        final_op2.wait_ids[a-j] = current_student.id;
+                                final_op2.wait_ids[j] = current_student.id;
+                                final_op2.wait_grades[j] = current_student.grade;
+                                break;
 
-                                        final_op2.wait_grades[a-(j+1)] = final_op2.wait_grades[a-j];
-                                        final_op2.wait_grades[a-j] = current_student.grade;
-                                    }
-
-
-                                }
-                                else if(current_student.grade > final_op2.wait_grades[a - j]){
-
-                                    final_op2.wait_ids[a-(j+1)] = final_op2.wait_ids[a-j];
-                                    final_op2.wait_ids[a-j] = current_student.id;
-
-                                    final_op2.wait_grades[a-(j+1)] = final_op2.wait_grades[a-j];
-                                    final_op2.wait_grades[a-j] = current_student.grade;
-
-
-                                }
 
                             }
                         }
-                   
                     }   
     
 
@@ -285,11 +261,11 @@ int main(){
 
     //course_list.Print();
 
-    student_list.InsertElement("Kristoff",725.66,0,1,0);
-    student_list.InsertElement("Gothi",490.10,0,1,1);
-    student_list.InsertElement("Gerda",556.79,1,0,2);
-    student_list.InsertElement("Hans",418.09,1,0,3);
-    student_list.InsertElement("Olavo",496.00,0,1,4);
+    student_list.InsertElement("Kristoff",500,0,1,0);
+    student_list.InsertElement("Gothi",500,0,1,1);
+    student_list.InsertElement("Gerda",500,1,0,2);
+    student_list.InsertElement("Hans",500,1,0,3);
+    student_list.InsertElement("Olavo",500,0,1,4);
     // student_list.InsertElement("I",700,2,0,5);
     // student_list.InsertElement("B",650,0,1,6);
     // student_list.InsertElement("F",650,1,0,7);
