@@ -115,6 +115,36 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
 
                     student last = student_list.GetElementById(final_op2.classified_ids[n_vac-1],a);
                     student_list.ChangeSinal(last.id,0,a);
+                    
+                    for(j=a-1;j>0;j--){  // Colocando o estudante retirado na lista de espera da primeira opção
+                    
+                        if(final_op2.wait_ids[0] == -1){
+                            final_op2.wait_ids[0] = last.id;
+                            final_op2.wait_grades[0] = last.grade;
+                            break;
+                        }
+                        
+                        if(final_op2.wait_ids[j-1] != -1){
+
+                    
+                            if((final_op2.wait_grades[j-1] < last.grade) ||
+                            (final_op2.wait_grades[j-1] == last.grade && final_op2.wait_ids[j-1] > last.id )){
+                                
+                                final_op2.wait_ids[j] = final_op2.wait_ids[j-1];
+                                final_op2.wait_ids[j-1] = last.id;
+
+                                final_op2.wait_grades[j] = final_op2.wait_grades[j-1];
+                                final_op2.wait_grades[j-1] = last.grade;
+                           
+                            }else{
+
+                                final_op2.wait_ids[j] = last.id;
+                                final_op2.wait_grades[j] = last.grade;
+                                break;
+
+                            }
+                        }
+                    }
                     final_op2.classified_ids[n_vac-1] = current_student.id;
                     final_op2.classified_grades[n_vac-1] = current_student.grade;
                     student_list.ChangeSinal(current_student.id,1,a);
