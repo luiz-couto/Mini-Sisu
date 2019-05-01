@@ -34,16 +34,27 @@ void OrdenaListaAlunos(StudentList &student_list, int n, int a){
                         if(prev.option_1 == i){
                            
                             if(prev.grade < current.grade){
+                                
+                                //cout <<"k=" << student_list.GetElement(k).name << endl;
                                 student_list.ExchangeElement(k);
+                                //cout <<"k=" << student_list.GetElement(k).name << endl;
+                                k = k-1;
+                                
+                                
+                            }else{
+                                break;
                             }
+                        }else{
+                            break;
                         }
-                        break;
+                        
                     }
                     else{
                         student_list.ExchangeElement(k);
+                        k = k-1;
                     }
 
-                    k = k-1;
+                    //k = k-1;
                 }
             }
         }
@@ -149,33 +160,33 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                     final_op2.classified_grades[n_vac-1] = current_student.grade;
                     student_list.ChangeSinal(current_student.id,1,a);
 
-                    for(j=2;j<n_vac-1;j++){
+                    for(j=n_vac-1;j>0;j--){
 
-                        if(current_student.grade < final_op2.classified_grades[n_vac - j]){
+                        if(current_student.grade < final_op2.classified_grades[j-1]){
                             break;
                         }else{
 
-                            if(current_student.grade == final_op2.classified_grades[n_vac - j]){
+                            if(current_student.grade == final_op2.classified_grades[j-1]){
                                 
-                                if(current_student.id > final_op2.classified_ids[n_vac - j]){
+                                if(current_student.id > final_op2.classified_ids[j-1]){
                                     break;
                                 }
                                 else{
-                                    final_op2.classified_ids[n_vac-(j+1)] = final_op2.classified_ids[n_vac-j];
-                                    final_op2.classified_ids[n_vac-j] = current_student.id;
+                                    final_op2.classified_ids[j] = final_op2.classified_ids[j-1];
+                                    final_op2.classified_ids[j-1] = current_student.id;
 
-                                    final_op2.classified_grades[n_vac-(j+1)] = final_op2.classified_grades[n_vac-j];
-                                    final_op2.classified_grades[n_vac-j] = current_student.grade;
+                                    final_op2.classified_grades[j] = final_op2.classified_grades[j-1];
+                                    final_op2.classified_grades[j-1] = current_student.grade;
                                 }
 
                             }
-                            else if(current_student.grade > final_op2.classified_grades[n_vac - j]){
+                            else if(current_student.grade > final_op2.classified_grades[j-1]){
 
-                                final_op2.classified_ids[n_vac-(j+1)] = final_op2.classified_ids[n_vac-j];
-                                final_op2.classified_ids[n_vac-j] = current_student.id;
+                                final_op2.classified_ids[j] = final_op2.classified_ids[j-1];
+                                final_op2.classified_ids[j-1] = current_student.id;
 
-                                final_op2.classified_grades[n_vac-(j+1)] = final_op2.classified_grades[n_vac-j];
-                                final_op2.classified_grades[n_vac-j] = current_student.grade;
+                                final_op2.classified_grades[j] = final_op2.classified_grades[j-1];
+                                final_op2.classified_grades[j-1] = current_student.grade;
 
                             }
                         }
@@ -332,6 +343,7 @@ int main(){
 
     GetData(course_list,student_list,final_list,n,a);
     OrdenaListaAlunos(student_list,n,a);
+    //cout << student_list.GetElement(1).name << endl;
     PreencheListaFinal(course_list,student_list,final_list,n,a);
     VerificaSegundaOpcao(course_list,student_list,final_list,n,a);
     PrintFinal(course_list,student_list,final_list,n,a);
