@@ -1,4 +1,4 @@
-# Mini-Sisu (Em desenvolvimento) - C++
+# Mini-Sisu - C++
 Trabalho Prático Nº1 - Estrutura de Dados - UFMG - Luiz Felipe Couto Gontijo
 
 ## Para compilar
