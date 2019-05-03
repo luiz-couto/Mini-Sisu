@@ -117,8 +117,12 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                 final final_op2 = final_list.GetElement(op2);
 
                 int n_vac = course_op2.vacancies;
+                int op1_final = student_list.GetElementById(final_op2.classified_ids[n_vac-1],a).option_1;
+
                 if((current_student.grade > final_op2.classified_grades[n_vac-1]) ||
-                (current_student.grade == final_op2.classified_grades[n_vac-1] && current_student.id < final_op2.classified_ids[n_vac-1] )){
+                (current_student.grade == final_op2.classified_grades[n_vac-1] && current_student.option_1 == op2 && op1_final != op2) || 
+                (current_student.grade == final_op2.classified_grades[n_vac-1] && current_student.option_1 == op2 && op1_final == op2 && current_student.id < final_op2.classified_ids[n_vac-1] )){
+
 
                     student last = student_list.GetElementById(final_op2.classified_ids[n_vac-1],a);
                     student_list.ChangeSinal(last.id,0,a);
@@ -133,10 +137,13 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                         
                         if(final_op2.wait_ids[j-1] != -1){
 
-                    
+                            int op1_final2 = student_list.GetElementById(final_op2.wait_ids[j-1],a).option_1;
                             if((final_op2.wait_grades[j-1] < last.grade) ||
-                            (final_op2.wait_grades[j-1] == last.grade && final_op2.wait_ids[j-1] > last.id )){
+                            (final_op2.wait_grades[j-1] == last.grade && last.option_1 == op2 && op1_final2 != op2) ||
+                            (final_op2.wait_grades[j-1] == last.grade && last.option_1 == op2 && op1_final2 == op2 && final_op2.wait_ids[j-1] > last.id)) {
                                 
+                                 
+
                                 final_op2.wait_ids[j] = final_op2.wait_ids[j-1];
                                 final_op2.wait_ids[j-1] = last.id;
 
@@ -163,6 +170,10 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                         }else{
 
                             if(current_student.grade == final_op2.classified_grades[j-1]){
+
+                                if(current_student.option_1 != op2 && student_list.GetElementById(final_op2.classified_grades[j-1],a).option_1 == op2){
+                                    break;
+                                }
                                 
                                 if(current_student.id > final_op2.classified_ids[j-1]){
                                     break;
@@ -203,8 +214,10 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                         if(final_op2.wait_ids[j-1] != -1){
 
                     
+                            int op1_final3 = student_list.GetElementById(final_op2.wait_ids[j-1],a).option_1;
                             if((final_op2.wait_grades[j-1] < current_student.grade) ||
-                            (final_op2.wait_grades[j-1] == current_student.grade && final_op2.wait_ids[j-1] > current_student.id )){
+                            (final_op2.wait_grades[j-1] == current_student.grade && current_student.option_1 == op2 && op1_final3 != op2) ||
+                            (final_op2.wait_grades[j-1] == current_student.grade && current_student.option_1 == op2 && op1_final3 == op2 && final_op2.wait_ids[j-1] > current_student.id)){
                                 
                                 final_op2.wait_ids[j] = final_op2.wait_ids[j-1];
                                 final_op2.wait_ids[j-1] = current_student.id;
