@@ -1,6 +1,8 @@
 //MINI-SISU - ATIVIDADE PRÁTICA Nº1 - ESTRUTURA DE DADOS
 //NOME: LUIZ FELIPE COUTO GONTIJO
 
+//PARA MELHOR EXPLICAÇÃO DO CÓDIGO, VEJA A DOCUMENTAÇÃO
+
 #include "lista_cursos.h"
 #include "lista_alunos.h"
 #include "lista_final.h"
@@ -10,7 +12,7 @@
 
 using namespace std;
 
-void OrdenaListaAlunos(StudentList &student_list, int n, int a){
+void OrdenaListaAlunos(StudentList &student_list, int n, int a){  //ordena alunos de acordo com primeira opção em ordem crescente e por ordem decrescente de nota
 
     int i;
     int j;
@@ -19,49 +21,43 @@ void OrdenaListaAlunos(StudentList &student_list, int n, int a){
 
         for(j=1;j<a;j++){
            
-            student current = student_list.GetElement(j);
+            student current = student_list.GetElement(j);       //Get aluno atual
             
             if(current.option_1 == i){
                
                 int k = j-1;
                
-                while(k >= 0){   //-1,Pois deve-se comparar com a primeira posição também
+                while(k >= 0){   //0,Pois deve-se comparar com a primeira posição também
                
-                    student prev = student_list.GetElement(k);
+                    student prev = student_list.GetElement(k); //Get aluno anterior na lista
                 
                     if(prev.option_1 <= i){
                         
                         if(prev.option_1 == i){
-                           
+
                             if(prev.grade < current.grade){
                                 
-                                //cout <<"k=" << student_list.GetElement(k).name << endl;
-                                student_list.ExchangeElement(k);
-                                //cout <<"k=" << student_list.GetElement(k).name << endl;
+                                student_list.ExchangeElement(k); //Aluno anterior e atual trocam de posição na lista de alunos
                                 k = k-1;
-                                
                                 
                             }else{
                                 break;
                             }
                         }else{
                             break;
-                        }
-                        
+                        }   
                     }
                     else{
                         student_list.ExchangeElement(k);
                         k = k-1;
                     }
-
-                    //k = k-1;
                 }
             }
         }
     }
 }
 
-void PreencheListaFinal(CourseList &course_list, StudentList &student_list, FinalList &final_list, int n, int a){
+void PreencheListaFinal(CourseList &course_list, StudentList &student_list, FinalList &final_list, int n, int a){  //Primeiro preenchimento da lista final
 
     int i;
     int k=0;  //auxiliar - contador global na lista de alunos
@@ -71,8 +67,8 @@ void PreencheListaFinal(CourseList &course_list, StudentList &student_list, Fina
     
     for(i=0;i<n;i++){       //n é o numero de materias
 
-        course current_course = course_list.GetElement(i);
-        int num_vac = current_course.vacancies;
+        course current_course = course_list.GetElement(i); //Get curso atual
+        int num_vac = current_course.vacancies;  //Get número de vagas do curso atual
         
         current_student = student_list.GetElement(k);
         j = 0;
@@ -80,11 +76,11 @@ void PreencheListaFinal(CourseList &course_list, StudentList &student_list, Fina
         while(current_student.option_1 == i){
 
             if(j < num_vac){
-                final_list.InsertInClassified(current_student.id,current_student.grade,num_vac,i);
+                final_list.InsertInClassified(current_student.id,current_student.grade,num_vac,i);  //Insere em classificados caso ainda tenha vagas
                 j++;
-                student_list.ChangeSinal(current_student.id,1,a);
+                student_list.ChangeSinal(current_student.id,1,a); //Muda o sinal do aluno atual para 1
             }else{
-                final_list.InsertInWait(current_student.id,current_student.grade,i,a); // sendo a o número total de alunos
+                final_list.InsertInWait(current_student.id,current_student.grade,i,a); // sendo 'a' o número total de alunos
             }
             k++;
             if(k > a-1){  // a-1 pois k começa em 0
@@ -106,7 +102,7 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
 
     student current_student = student_list.GetElement(0);
     
-    while(have_zero == true){
+    while(have_zero == true){    //Enquanto algum aluno tiver sinal = 0, o loop continua
         
         k = 0;
         int i,j;
@@ -291,13 +287,13 @@ void GetData(CourseList &course_list,StudentList &student_list,FinalList &final_
     }
 }
 
-void PrintFinal(CourseList &course_list,StudentList &student_list,FinalList &final_list,int &n,int &a){
+void PrintFinal(CourseList &course_list,StudentList &student_list,FinalList &final_list,int &n,int &a){  //Imprime a lista final rescpectiva a cada matéria
 
     int i,j;
 
-    cout << "------------------------------------------------------------" << endl;
+    //cout << "------------------------------------------------------------" << endl;
     cout << fixed;
-    cout.precision(2);
+    cout.precision(2);  // Para imprimir sempre duas casas decimais
 
     for(i=0;i<n;i++){
         
@@ -320,7 +316,7 @@ void PrintFinal(CourseList &course_list,StudentList &student_list,FinalList &fin
                 cout << current_student.name << " " << current_final.classified_grades[j] << endl;
             }
         }
-        cout << "Lista de epera" << endl;
+        cout << "Lista de espera" << endl;
         for(j=0;j<a;j++){
             if(current_final.wait_ids[j] != -1){
                 student current_student = student_list.GetElementById(current_final.wait_ids[j],a);
@@ -343,7 +339,6 @@ int main(){
 
     GetData(course_list,student_list,final_list,n,a);
     OrdenaListaAlunos(student_list,n,a);
-    //cout << student_list.GetElement(1).name << endl;
     PreencheListaFinal(course_list,student_list,final_list,n,a);
     VerificaSegundaOpcao(course_list,student_list,final_list,n,a);
     PrintFinal(course_list,student_list,final_list,n,a);
