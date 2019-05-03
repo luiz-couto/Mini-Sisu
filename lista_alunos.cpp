@@ -13,9 +13,10 @@ StudentList::StudentList(){
 StudentList::~StudentList(){
 
 
+}
 
 
-};
+
 
 void StudentList::InsertElement(string name, float grade, int option_1, int option_2, int id){
 
@@ -42,26 +43,6 @@ void StudentList::InsertElement(string name, float grade, int option_1, int opti
     }
 
     this->number_of_elements++;
-
-};
-
-void StudentList::Print(){
-
-    student *current = this->start;
-    int i;
-   
-    for(i=0;i<this->number_of_elements;i++){
-
-        cout << "Nome do aluno:" << current->name << endl;
-        cout << "Nota:" << current->grade << endl;
-        cout << "OP 1:" << current->option_1 << endl;
-        cout << "OP 2:" << current->option_2 << endl;
-
-        current = current->prox;
-
-    }
-
-
 
 };
 

@@ -163,7 +163,7 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
                     final_op2.classified_grades[n_vac-1] = current_student.grade;
                     student_list.ChangeSinal(current_student.id,1,a);
 
-                    for(j=n_vac-1;j>0;j--){
+                    for(j=n_vac-1;j>0;j--){  //Colocando o estudante que passou na lista de classificação
 
                         if(current_student.grade < final_op2.classified_grades[j-1]){
                             break;
@@ -248,7 +248,7 @@ void VerificaSegundaOpcao(CourseList &course_list,StudentList &student_list,Fina
     }
 }
 
-void GetData(CourseList &course_list,StudentList &student_list,FinalList &final_list,int &n,int &a){
+void GetData(CourseList &course_list,StudentList &student_list,FinalList &final_list,int &n,int &a){   //Lendo da entrada padrão
 
     int i; // auxiliar
 

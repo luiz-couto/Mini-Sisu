@@ -41,24 +41,6 @@ void CourseList::InsertElement(string name,int vacancies){
 
 };
 
-void CourseList::Print(){
-
-    course *current = this->start;
-    int i;
-   
-    for(i=0;i<this->number_of_elements;i++){
-
-        cout << "Curso:" << current->name << endl;
-        cout << "Nº de Vagas:" << current->vacancies << endl;
-
-        current = current->prox;
-
-    }
-
-
-
-};
-
 course CourseList::GetElement(int position){
 
     course *current = this->start;

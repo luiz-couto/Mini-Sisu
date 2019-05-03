@@ -31,7 +31,6 @@ class StudentList{
         ~StudentList();
         void InsertElement(string name, float grade, int option_1, int option_2, int id);
         student GetElement(int position);
-        void Print();
         void ExchangeElement(int position);
         student GetElementById(int id, int a);
         void ChangeSinal(int id,int sinal, int a);

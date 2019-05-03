@@ -67,56 +67,6 @@ void FinalList::InsertElement(string course_name, int number_v, int number_stude
 
 };
 
-void FinalList::Print(){
-
-    final *current = this->start;
-    int i;
-   
-    for(i=0;i<this->number_of_elements;i++){
-
-        cout << "Curso:" << current->course_name << endl;
-        int j;
-        for(j=0;j<2;j++){
-             cout << current->classified_grades[j] << " - " << endl;
-        }
-
-        current = current->prox;
-
-    }
-
-
-
-};
-
-void FinalList::PrintCourse(int course, int n_vac, int a){
-
-    final *current = this->start;
-    int i;
-
-    for(i=0;i<course;i++){
-        current = current->prox;
-    }
-
-    cout << current->course_name << endl << endl;
-
-    cout << "Classificados" << endl;
-    for(i=0;i<n_vac;i++){
-        if(current->classified_ids[i] != -1){
-            cout << current->classified_ids[i] << " - " << current->classified_grades[i] << endl;
-        }
-    }
-    cout << "Lista de espera" << endl;
-    for(i=0;i<a;i++){
-        if(current->wait_ids[i] != -1){
-            cout << current->wait_ids[i] << " - " << current->wait_grades[i] << endl << endl;
-        }
-    }
-
-
-}
-
-
-
 final FinalList::GetElement(int position){
 
     final *current = this->start;

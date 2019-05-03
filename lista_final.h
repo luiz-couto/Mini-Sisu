@@ -36,8 +36,7 @@ class FinalList{
         void InsertInClassified(int id, float grade, int number_v, int position);
         void InsertInWait(int id, float grade, int position,int a);
         final GetElement(int position);
-        void Print();
-        void PrintCourse(int course,int n_vac, int a);
+        
 
 
 };
